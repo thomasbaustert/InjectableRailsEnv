@@ -34,4 +34,15 @@ Dummy::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.generators do |g|
+    g.test_framework :rspec,
+       :fixtures => true,
+       :view_specs => false,
+       :helper_specs => false,
+       :routing_specs => false,
+       :controller_specs => true,
+       :request_specs => true
+  end
+
 end

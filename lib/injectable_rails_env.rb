@@ -7,6 +7,15 @@ module InjectableRailsEnv
       attr_writer :rails_env
 
       include InstanceMethods
+      extend ClassMethods
+    end
+  end
+
+  module ClassMethods
+    private
+
+    def rails_env_production?
+      !@rails_env.nil? ? (@rails_env == "production") : Rails.env.production?
     end
   end
 

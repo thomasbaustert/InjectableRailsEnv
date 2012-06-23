@@ -14,12 +14,14 @@ describe "InjectableRailsEnv" do
 
   let(:foo) { Foo.new }
 
-  # TODO 23.06.12/16:16/tbaustert integration? staging? customer env?
+  # TODO 23.06.12/16:16/tbaustert
+  # - integration? staging? ci? customer env?
+  # - Foo.rails_env = "production"
 
   describe "#rails_env_production?" do
 
     it "is a private method" do
-      foo.private_methods(:false).should include("rails_env_production?")
+      should_be_private_method(:rails_env_production?)
     end
 
     context "without injected rails_env" do
@@ -52,7 +54,7 @@ describe "InjectableRailsEnv" do
   describe "#rails_env_development?" do
 
     it "is a private method" do
-      foo.private_methods(:false).should include("rails_env_development?")
+      should_be_private_method(:rails_env_development?)
     end
 
     context "without injected rails_env" do
@@ -85,7 +87,7 @@ describe "InjectableRailsEnv" do
   describe "#rails_env_test?" do
 
     it "is a private method" do
-      foo.private_methods(:false).should include("rails_env_test?")
+      should_be_private_method(:rails_env_test?)
     end
 
     context "without injected rails_env" do
@@ -114,5 +116,11 @@ describe "InjectableRailsEnv" do
     end
 
   end
-  
+
+  private
+
+  def should_be_private_method(method_name)
+    foo.private_methods(:false).map(&:to_s).should include(method_name.to_s)
+  end
+
 end
