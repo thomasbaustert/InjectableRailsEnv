@@ -29,7 +29,14 @@ Now you can simulate the Rails env via <tt>rails_env=</tt>:
   # spec/controllers/login_controller_spec.rb
   TODO
 
+== Supported Environments
 
+Supported environments are test, development, production, stating, integration and ci.
+So for each there is a method <tt>rails_env_ENV?</tt>.
+
+== Todos
+
+* Allow Rails env to be set on class level (e.g. Foo.rails_env = "production")
 
 == Contact
 

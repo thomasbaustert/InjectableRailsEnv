@@ -12,28 +12,22 @@ module InjectableRailsEnv
   end
 
   module ClassMethods
-    private
-
-    def rails_env_production?
-      !@rails_env.nil? ? (@rails_env == "production") : Rails.env.production?
-    end
+    # private ?
   end
 
   module InstanceMethods
 
     private
 
-    def rails_env_production?
-      !@rails_env.nil? ? (@rails_env == "production") : Rails.env.production?
+    %w(test development production stating integration ci).each do |name|
+      class_eval(<<-EOS, __FILE__, __LINE__ + 1)
+        def rails_env_#{name}?
+          !@rails_env.nil? ? (@rails_env == "#{name}") : Rails.env.#{name}?
+        end
+        private :rails_env_#{name}?
+      EOS
     end
 
-    def rails_env_development?
-      !@rails_env.nil? ? (@rails_env == "development") : Rails.env.development?
-    end
-
-    def rails_env_test?
-      !@rails_env.nil? ? (@rails_env == "test") : Rails.env.test?
-    end
   end
 
 end
