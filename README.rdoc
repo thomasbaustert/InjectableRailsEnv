@@ -1,0 +1,41 @@
+= InjectableRailsEnv
+
+Allows injecting the Rails env into a class for testing purpose.
+
+As described in TODO(link to blog) it is not that easy to simulate a special Rails environment
+like production or development during tests. This gem may help.
+
+== Installation
+
+Via Bundler:
+
+  # path/to/railsapp/Gemfile
+  gem 'injectable_rails_env'
+
+  $ bundle install
+
+== Usage
+
+Include the module into your class:
+
+  # app/controllers/login_controller.rb
+  class LoginController < ApplicationController
+    include InjectableRailsEnv
+    ...
+  end
+
+Now you can simulate the Rails env via <tt>rails_env=</tt>:
+
+  # spec/controllers/login_controller_spec.rb
+  TODO
+
+
+
+== Contact
+
+For comments and question feel free to contact me: business@thomasbaustert.de
+
+If you are using the plugin, consider recommending me at workingwithrails.com:
+http://workingwithrails.com/person/6131-thomas-baustert
+
+Copyright (c) 2009 [Thomas Baustert], released under the MIT license
