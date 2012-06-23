@@ -13,8 +13,12 @@ class JobsController < ApplicationController
   private
 
   def authenticate
-    return true unless rails_env_production?
-    redirect_to login_url
+    return unless rails_env_production?
+    redirect_to login_url unless logged_in?
+  end
+
+  def logged_in?
+    false
   end
 
 end

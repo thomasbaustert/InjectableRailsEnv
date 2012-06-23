@@ -31,8 +31,8 @@ Include the module into your class:
     private
 
     def authenticate
-      return true unless rails_env_production?
-      redirect_to login_url
+      return unless rails_env_production?
+      redirect_to login_url unless logged_in?
     end
 
   end
