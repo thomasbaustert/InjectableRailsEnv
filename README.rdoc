@@ -18,16 +18,52 @@ Via Bundler:
 
 Include the module into your class:
 
-  # app/controllers/login_controller.rb
-  class LoginController < ApplicationController
+  # app/controllers/jobs_controller.rb
+  class JobsController < ApplicationController
     include InjectableRailsEnv
-    ...
+
+    before_filter :authenticate
+
+    def index
+      ...
+    end
+
+    private
+
+    def authenticate
+      return true unless rails_env_production?
+      redirect_to login_url
+    end
+
   end
 
 Now you can simulate the Rails env via <tt>rails_env=</tt>:
 
-  # spec/controllers/login_controller_spec.rb
-  TODO
+  # spec/controllers/jobs_controller.rb
+  describe JobsController do
+
+    context "Rails env is production" do
+
+      it "requests authentication" do
+        @controller.rails_env = "production"
+
+        get :index
+        response.should be_redirect
+        response.should redirect_to login_url
+      end
+    end
+
+    context "Rails env is non production" do
+
+      it "allows access without authentication" do
+        @controller.rails_env = "non-production"
+
+        get :index
+        response.should be_success
+        response.should render_template "index"
+      end
+    end
+  end
 
 == Supported Environments
 
@@ -36,7 +72,7 @@ So for each there is a method <tt>rails_env_ENV?</tt>.
 
 == Todos
 
-* Allow Rails env to be set on class level (e.g. Foo.rails_env = "production")
+* Allow Rails env to be set on class level (e.g. JobsController.rails_env = "production")
 
 == Contact
 
@@ -45,4 +81,4 @@ For comments and question feel free to contact me: business@thomasbaustert.de
 If you are using the plugin, consider recommending me at workingwithrails.com:
 http://workingwithrails.com/person/6131-thomas-baustert
 
-Copyright (c) 2009 [Thomas Baustert], released under the MIT license
+Copyright (c) 2012 [Thomas Baustert], released under the MIT license
