@@ -102,6 +102,13 @@ to using it on the instance level (like in the example above in <tt>authenticate
 Supported environments are test, development, production, stating, integration and ci.
 So for each there is a method <tt>rails_env_ENV?</tt>.
 
+= Alternatives
+
+Avoid if statement!
+JobsController
+ProductionJobsController
+
+
 = Todos
 
 * Allow Rails env to be set on class level (e.g. JobsController.rails_env = "production")

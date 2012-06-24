@@ -14,25 +14,13 @@ module InjectableRailsEnv
   end
 
   module ClassMethods
-
-    class_eval(<<-EOS, __FILE__, __LINE__ + 1)
-      unless defined? @@rails_env
-        @@rails_env = nil
-      end
-
-      def rails_env=(e)
-        @@rails_env = e
-      end
-
-      def rails_env
-        @@rails_env
-      end
-    EOS
+    attr_accessor :rails_env
+#    private :rails_env
 
     SUPPORTED_ENVS.each do |name|
       class_eval(<<-EOS, __FILE__, __LINE__ + 1)
         def rails_env_#{name}?
-          !@@rails_env.nil? ? (@@rails_env == "#{name}") : Rails.env.#{name}?
+          !rails_env.nil? ? (rails_env == "#{name}") : Rails.env.#{name}?
         end
         private :rails_env_#{name}?
       EOS
