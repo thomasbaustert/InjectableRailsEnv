@@ -5,9 +5,10 @@ class Rails
 
   class RailsEnv
     # return value not important here
-    def production?; end
-    def development?; end
-    def test?; end
+    %w(test development production stating integration ci).each do |name|
+      define_method("#{name}?") do
+      end
+    end
   end
 
   @@env = RailsEnv.new

@@ -5,7 +5,7 @@ Allows injecting the Rails env into a class for testing purpose.
 As described in TODO(link to blog) it is not that easy to simulate a special Rails environment
 like production or development during tests. This gem may help.
 
-== Installation
+= Installation
 
 Via Bundler:
 
@@ -14,7 +14,9 @@ Via Bundler:
 
   $ bundle install
 
-== Usage
+= Usage
+
+== On instance level
 
 Include the module into your class under test and replace all occurrences
 of <tt>Rails.env.production?</tt> with <tt>rails_env_production?</tt>:
@@ -66,16 +68,27 @@ Now you can simulate the Rails env via <tt>rails_env=</tt>:
     end
   end
 
-== Supported Environments
+== On class level
+
+TODO
+
+  with_rails_env(JobsController, :production) do
+    # set JobsController.rails_env = "production"
+    get :index
+    ...
+  end
+  # set JobsController.rails_env = nil
+
+= Supported Environments
 
 Supported environments are test, development, production, stating, integration and ci.
 So for each there is a method <tt>rails_env_ENV?</tt>.
 
-== Todos
+= Todos
 
 * Allow Rails env to be set on class level (e.g. JobsController.rails_env = "production")
 
-== Contact
+= Contact
 
 For comments and question feel free to contact me: business@thomasbaustert.de
 
