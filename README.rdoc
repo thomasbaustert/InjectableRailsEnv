@@ -16,7 +16,8 @@ Via Bundler:
 
 == Usage
 
-Include the module into your class:
+Include the module into your class under test and replace all occurrences
+of <tt>Rails.env.production?</tt> with <tt>rails_env_production?</tt>:
 
   # app/controllers/jobs_controller.rb
   class JobsController < ApplicationController
@@ -31,7 +32,7 @@ Include the module into your class:
     private
 
     def authenticate
-      return unless rails_env_production?
+      return unless rails_env_production? # intead of Rails.env.production?
       redirect_to login_url unless logged_in?
     end
 
