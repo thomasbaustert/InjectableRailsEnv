@@ -70,14 +70,17 @@ Now you can simulate the Rails env via <tt>rails_env=</tt>:
 
 == On class level
 
-TODO
+This is not supported cause is does not work. Consider the following code:
 
-  with_rails_env(JobsController, :production) do
-    # set JobsController.rails_env = "production"
-    get :index
+  class JobsController < ApplicationController
+    include InjectableRailsEnv
+
+    before_filter(:authenticate) if rails_env_production?
     ...
   end
-  # set JobsController.rails_env = nil
+
+When the code is execute by the Ruby interpreter <tt>rails_env</tt> has not been set
+and there <tt>rails_env_production?</tt> will always return the value of <tt>Rails.env.production?</tt>.
 
 = Supported Environments
 

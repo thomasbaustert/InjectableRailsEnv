@@ -48,42 +48,4 @@ describe "InjectableRailsEnv" do
 
   end
 
-  InjectableRailsEnv::SUPPORTED_ENVS.each do |name|
-
-    describe "::rails_env_#{name}?" do
-      before(:each) { Foo.rails_env = nil }
-
-      it "is a private method" do
-        Foo.private_methods(:false).map(&:to_s).should include("rails_env_#{name}?")
-      end
-
-      context "without injected rails_env" do
-
-        it "delegates to Rails.env.#{name}?" do
-          Rails.env.should_receive("#{name}?")
-          Foo.send("rails_env_#{name}?")
-        end
-      end
-
-      context "with injected rails_env" do
-
-        context "in #{name} env" do
-          it "returns true" do
-            Foo.rails_env = "#{name}"
-            Foo.send("rails_env_#{name}?").should be_true
-          end
-        end
-
-        context "in none #{name} env" do
-          it "returns false" do
-            Foo.rails_env = "non-#{name}"
-            Foo.send("rails_env_#{name}?").should be_false
-          end
-        end
-      end
-
-    end
-
-  end
-
 end
