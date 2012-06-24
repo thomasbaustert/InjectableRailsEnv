@@ -79,8 +79,11 @@ This is not supported cause is does not work. Consider the following code:
     ...
   end
 
-When the code is execute by the Ruby interpreter <tt>rails_env</tt> has not been set
-and there <tt>rails_env_production?</tt> will always return the value of <tt>Rails.env.production?</tt>.
+When the code is executed <tt>rails_env</tt> has not been set and therefore <tt>rails_env_production?</tt>
+will always return the value of <tt>Rails.env.production?</tt>.
+
+So you have to change your code from using a call to <tt>rails_env_production?</tt> on a class level
+to a call on the instance level (like in the example above in <tt>authenticate</tt>).
 
 = Supported Environments
 
