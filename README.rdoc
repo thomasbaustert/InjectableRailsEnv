@@ -70,8 +70,19 @@ Now you can simulate the Rails env via <tt>rails_env=</tt>:
 
 == On class level
 
-This is not supported cause is does not work. Consider the following code:
+We use a singleton instance variable here
+TODO
 
+  with_rails_env(JobsController, :production) do
+    # set JobsController.rails_env = "production"
+    get :index
+    ...
+  end
+  # set JobsController.rails_env = nil
+
+Problems TODO:
+
+  # app/controllers/jobs_controller.rb
   class JobsController < ApplicationController
     include InjectableRailsEnv
 
@@ -79,11 +90,12 @@ This is not supported cause is does not work. Consider the following code:
     ...
   end
 
-When the code is executed <tt>rails_env</tt> has not been set and therefore <tt>rails_env_production?</tt>
-will always return the value of <tt>Rails.env.production?</tt>.
+When running the specs the <tt>JobsController</tt> code is executed before the spec starts
+and <tt>rails_env</tt> has not been set. Therefore <tt>rails_env_production?</tt> will always
+return the value of <tt>Rails.env.production?</tt>.
 
-So you have to change your code from using a call to <tt>rails_env_production?</tt> on a class level
-to a call on the instance level (like in the example above in <tt>authenticate</tt>).
+You have to change your code from using <tt>rails_env_production?</tt> on the class level
+to using it on the instance level (like in the example above in <tt>authenticate</tt>).
 
 = Supported Environments
 
