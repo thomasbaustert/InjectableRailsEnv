@@ -15,7 +15,7 @@ module InjectableRailsEnv
 
   module ClassMethods
     attr_accessor :rails_env
-#    private :rails_env
+    private :rails_env
 
     SUPPORTED_ENVS.each do |name|
       class_eval(<<-EOS, __FILE__, __LINE__ + 1)
