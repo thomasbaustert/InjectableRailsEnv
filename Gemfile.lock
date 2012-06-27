@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     injectable_rails_env (0.0.1)
-      rails (~> 3.2.6)
+      rails (>= 2.3)
 
 GEM
   remote: http://rubygems.org/
