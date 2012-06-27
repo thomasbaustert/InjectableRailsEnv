@@ -3,7 +3,18 @@
 Allows injecting the Rails env into a class for testing purpose.
 
 It is not easy to simulate a special Rails environment like production or development during tests.
-This gem may help.
+
+First we cannot mock the Rails environment methods like <tt>production?</tt> as follows:
+
+  Rails.env.should_receive(:production?).and_return(true)
+
+Cause the method does not exists and the return value is delivered through <tt>method_missing</tt>
+internally.
+
+Even if we could mock the method other code on the way from the specs to the class under test
+may call <tt>Rails.env.production?</tt> and our mocking would cause side effects here.
+
+So we have to find another way to simulate the environment and this gem may help.
 
 = Installation
 
